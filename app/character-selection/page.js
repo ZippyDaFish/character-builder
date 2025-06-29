@@ -4,7 +4,7 @@ import { db, auth } from '@/app/lib/firebase/firebaseConfig';
 import { getDocs, collection, query, where } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 
-import CharacterCard from "../components/CharacterCard";
+import CharacterCard from "../components/characterCard";
 
 export default function CharacterSelection() {
     const [characters, setCharacters] = useState([]);
