@@ -2,7 +2,7 @@ import "./globals.css";
 import NavigationHeader from "./components/navigationHeader";
 
 export const metadata = {
-  title: "Character",
+  title: "Character Builder",
 };
 
 export default function RootLayout({ children }) {
