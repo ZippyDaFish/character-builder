@@ -2,7 +2,7 @@ import "./globals.css";
 import NavigationHeader from "./components/navigationHeader";
 
 export const metadata = {
-  title: "Character Builder",
+  title: "Character",
 };
 
 export default function RootLayout({ children }) {
@@ -10,6 +10,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <NavigationHeader/>
+        {children}
       </body>
     </html>
   );

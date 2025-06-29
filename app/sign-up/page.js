@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '@/app/lib/firebase/firebaseConfig';
 
+import styles from "./page.module.css";
+
 export default function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
