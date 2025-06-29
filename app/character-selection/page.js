@@ -37,6 +37,7 @@ export default function CharacterSelection() {
 
     return (
         <div>
+            <h1>Character Selection</h1>
             <div>
                 {characters.map((character) => (
                     <CharacterCard key={character.id} name={character.name} archetype={character.archetype}/>

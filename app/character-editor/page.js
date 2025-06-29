@@ -38,6 +38,8 @@ export default function CharacterEditor(){
 
     return (
         <div>
+            <h1>Character Editor</h1>
+            
             <input type="text" placeholder="Character Name" name="name" onChange={handleChange}></input>
             <h3>Archetype: </h3>
             <select id="archetype" name="archetype" value={formData.archetype} onChange={handleChange}>
