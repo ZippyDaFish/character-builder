@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '@/app/lib/firebase/firebaseConfig';
+import { useRouter } from "next/navigation";
 
 import styles from "./page.module.css";
 
@@ -9,6 +10,7 @@ export default function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+    const router = useRouter();
 
     const handleSignUp = async () => {
         try {
@@ -16,6 +18,7 @@ export default function SignUp() {
             console.log(res);
             setEmail('');
             setPassword('');
+            router.push('/character-selection');
         } catch(e){
             console.error(e);
         }
