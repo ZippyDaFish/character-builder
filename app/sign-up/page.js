@@ -22,7 +22,7 @@ export default function SignUp() {
     };
 
     return (
-        <div>
+        <div className={styles.pageContent}>
             <h1>User Sign-Up</h1>
             <input
                 type="email"
