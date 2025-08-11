@@ -12,7 +12,12 @@ export default function NavigationHeader() {
     return (
         <div className="page-container">
             {isRestricted ? (
-                <div></div>
+                <div className="container">
+                    <div>
+                        <Link href="/sign-in">Sign-In</Link>
+                        <Link href="/sign-up">Sign-Up</Link>
+                    </div>
+                </div>
             ) : (
                 <div className="container">
                     <Link href="/character-selection">Characters</Link>
