@@ -44,7 +44,7 @@ export default function NavigationHeader() {
                 <div className="container">
                     <Link href="/character-selection">Characters</Link>
                     <Link href="/about">About</Link>
-                    <p>{user.email}</p>
+                    <p>{user?.email || ""}</p>
                     <SignOutButton/>
                 </div>
             )}
