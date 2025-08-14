@@ -1,8 +1,8 @@
 'use client';
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import { db, auth } from '@/app/lib/firebase/firebaseConfig';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, getDoc } from 'firebase/firestore';
 
 export default function CharacterEditor(){
     const [formData, setFormData] = useState({
@@ -36,6 +36,23 @@ export default function CharacterEditor(){
         return docRef.id;
     }
 
+    const { id } = useParams();
+    const [character, setCharacter] = useState(null);
+    
+    useEffect(() => {
+        if (!id) return;
+        const fetchData = async () => {
+            const docRef = doc(db, "characters", id);
+            const snap = await getDoc(docRef);
+            if (snap.exists()) {
+                setCharacter(snap.data());
+            }
+        };
+        fetchData();
+    }, [id]);
+    
+      if (!character) return <p>Loading...</p>;
+
     return (
         <div>
             <h1>Character Editor</h1>
@@ -56,6 +73,14 @@ export default function CharacterEditor(){
             <h3>Ingenuity: </h3>
             <input type="number" min="0" max="50" name="ingenuity" onChange={handleChange}></input>
             <button onClick={handleSaveCharacter}>Save Character</button>
+            <div>
+                <h1>{character.name}</h1>
+                <p>archetype: {character.archetype}</p>
+                <p>S: {character.sanity}</p>
+                <p>H: {character.humanity}</p>
+                <p>I: {character.ingenuity}</p>
+                <p>V: {character.vitality}</p>
+            </div>
         </div>
     );
 }

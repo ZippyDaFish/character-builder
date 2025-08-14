@@ -25,8 +25,6 @@ export default function CharacterSheet() {
   return (
     <div>
         <h1>{character.name}</h1>
-        <p>Class: {character.class}</p>
-        <p>Level: {character.level}</p>
         <p>archetype: {character.archetype}</p>
         <p>S: {character.sanity}</p>
         <p>H: {character.humanity}</p>
