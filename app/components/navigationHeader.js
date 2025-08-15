@@ -29,7 +29,6 @@ export default function NavigationHeader() {
     }, [user, router]);
 
     if(user === undefined) { return null; }
-    if(user) { console.log("Email: ", user.email); }
 
     return (
         <div className="page-container">
