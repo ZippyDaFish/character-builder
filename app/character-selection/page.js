@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
 import { db, auth } from '@/app/lib/firebase/firebaseConfig';
-import { doc, getDocs, deleteDoc, collection, query, where } from 'firebase/firestore';
+import { doc, onSnapshot, deleteDoc, collection, query, where } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import CharacterCard from "../components/characterCard";
@@ -10,30 +10,30 @@ export default function CharacterSelection() {
     const [characters, setCharacters] = useState([]);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-        console.log(user);
-        if (user) {
-            try {
+        const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+            if (user) {
                 const q = query(
-                collection(db, 'characters'),
-                where('createdBy', '==', user.email)
-            );
-            const querySnapshot = await getDocs(q);
-            const userCharacters = querySnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-            setCharacters(userCharacters);
-            } catch (error) {
-                console.error('Error fetching user characters:', error);
+                    collection(db, 'characters'),
+                    where('createdBy', '==', user.email)
+                );
+
+                const unsubscribeSnapshot = onSnapshot(q, (querySnapshot) => {
+                    const userCharacters = querySnapshot.docs.map(doc => ({
+                        id: doc.id,
+                        ...doc.data(),
+                    }));
+                    setCharacters(userCharacters);
+                });
+
+                return unsubscribeSnapshot;
+            } else {
+                setCharacters([]);
             }
-        } else {
-            setCharacters([]); // No user, no characters
-        }
         });
 
-    return () => unsubscribe(); // Clean up listener
+        return () => unsubscribeAuth();
     }, []);
+
 
     const handleDeleteCharacter = async (charId) => {
         try {
