@@ -1,10 +1,13 @@
 'use client';
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { db, auth } from '@/app/lib/firebase/firebaseConfig';
-import { collection, addDoc, doc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, getDoc, setDoc } from 'firebase/firestore';
 
-export default function CharacterEditor(){
+export default function CharacterEditor() {
+    const router = useRouter();
+    const { id } = useParams();
+
     const [formData, setFormData] = useState({
         name: '',
         archetype: '',
@@ -14,17 +17,34 @@ export default function CharacterEditor(){
         ingenuity: 0
     });
 
+    const [loading, setLoading] = useState(true);
+
+    // Load existing character if not "new"
+    useEffect(() => {
+        async function fetchData() {
+            if (!id) return;
+            if (id === 'new') {
+                setLoading(false);
+                return;
+            }
+            const docRef = doc(db, "characters", id);
+            const snap = await getDoc(docRef);
+            if (snap.exists()) {
+                setFormData(snap.data());
+            }
+            setLoading(false);
+        }
+        fetchData();
+    }, [id]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
-    }
+    };
 
-    async function handleSaveCharacter(){
-        console.log("saving character...");
-
+    async function handleSaveCharacter() {
         const user = auth.currentUser;
-
-        if(!user || !user.email){
+        if (!user || !user.email) {
             throw new Error('User not authenticated');
         }
 
@@ -32,55 +52,50 @@ export default function CharacterEditor(){
             ...formData,
             createdBy: user.email,
         };
-        const docRef = await addDoc(collection(db, 'characters'), characterData);
-        return docRef.id;
+
+        if (id === 'new') {
+            // Create new character
+            const docRef = await addDoc(collection(db, 'characters'), characterData);
+            router.push(`/character-editor/${docRef.id}`);
+        } else {
+            // Update existing
+            await setDoc(doc(db, 'characters', id), characterData, { merge: true });
+        }
     }
 
-    const { id } = useParams();
-    const [character, setCharacter] = useState(null);
-    
-    useEffect(() => {
-        if (!id) return;
-        const fetchData = async () => {
-            const docRef = doc(db, "characters", id);
-            const snap = await getDoc(docRef);
-            if (snap.exists()) {
-                setCharacter(snap.data());
-            }
-        };
-        fetchData();
-    }, [id]);
-    
-      if (!character) return <p>Loading...</p>;
+    if (loading) return <p>Loading...</p>;
 
     return (
         <div>
-            <h1>Character Editor</h1>
-            
-            <input type="text" placeholder="Character Name" name="name" onChange={handleChange}></input>
-            <h3>Archetype: </h3>
-            <select id="archetype" name="archetype" value={formData.archetype} onChange={handleChange}>
+            <h1>{id === 'new' ? 'Create New Character' : 'Edit Character'}</h1>
+
+            <input
+                type="text"
+                placeholder="Character Name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+            />
+            <h3>Archetype:</h3>
+            <select name="archetype" value={formData.archetype} onChange={handleChange}>
+                <option value="">--Select--</option>
                 <option value="bruiser">Bruiser</option>
                 <option value="guardian">Guardian</option>
                 <option value="altruist">Altruist</option>
             </select>
-            <h3>Vitality: </h3>
-            <input type="number" min="0" max="50" name="vitality" onChange={handleChange}></input>
-            <h3>Humanity: </h3>
-            <input type="number" min="0" max="50" name="humanity" onChange={handleChange}></input>
-            <h3>Sanity: </h3>
-            <input type="number" min="0" max="50" name="sanity" onChange={handleChange}></input>
-            <h3>Ingenuity: </h3>
-            <input type="number" min="0" max="50" name="ingenuity" onChange={handleChange}></input>
-            <button onClick={handleSaveCharacter}>Save Character</button>
-            <div>
-                <h1>{character.name}</h1>
-                <p>archetype: {character.archetype}</p>
-                <p>S: {character.sanity}</p>
-                <p>H: {character.humanity}</p>
-                <p>I: {character.ingenuity}</p>
-                <p>V: {character.vitality}</p>
-            </div>
+
+            <h3>Vitality:</h3>
+            <input type="number" min="0" max="50" name="vitality" value={formData.vitality} onChange={handleChange} />
+            <h3>Humanity:</h3>
+            <input type="number" min="0" max="50" name="humanity" value={formData.humanity} onChange={handleChange} />
+            <h3>Sanity:</h3>
+            <input type="number" min="0" max="50" name="sanity" value={formData.sanity} onChange={handleChange} />
+            <h3>Ingenuity:</h3>
+            <input type="number" min="0" max="50" name="ingenuity" value={formData.ingenuity} onChange={handleChange} />
+
+            <button onClick={handleSaveCharacter}>
+                {id === 'new' ? 'Create Character' : 'Save Changes'}
+            </button>
         </div>
     );
 }
