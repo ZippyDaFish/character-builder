@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
+import styles from "../styles/characterCard.css";
 
 export default function CharacterCard({ name, archetype, charId }) {
     const router = useRouter();
@@ -12,13 +13,12 @@ export default function CharacterCard({ name, archetype, charId }) {
     }
 
     return (
-        <div>
-            <div onClick={handleClickCharacter}>          
-                <h1>{name}</h1>
-                <h3>{archetype}</h3>
-            </div>
-            <div onClick={handleClickEditCharacter}>
-                <h1>Edit</h1>
+        <div className="content-container">
+             <h1>{name}</h1>
+            <h3>{archetype}</h3>
+            <div className="buttons-container">
+                <button onClick={handleClickCharacter}>View</button>
+                <button onClick={handleClickEditCharacter}>Edit</button>
             </div>
         </div>
     )
