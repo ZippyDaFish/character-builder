@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { db, auth } from '@/app/lib/firebase/firebaseConfig';
 import { doc, onSnapshot, deleteDoc, collection, query, where } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
+import { useRouter } from "next/navigation";
 
 import CharacterCard from "../components/characterCard";
 
 export default function CharacterSelection() {
     const [characters, setCharacters] = useState([]);
+    const router = useRouter();
 
     useEffect(() => {
         const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
@@ -47,6 +49,7 @@ export default function CharacterSelection() {
     return (
         <div>
             <h1>Character Selection</h1>
+            <button onClick={() => router.push('/character-editor/new')}>New Character</button>
             <div>
                 {characters.map((character) => (
                     <CharacterCard key={character.id} character={character} handleDeleteCharacter={handleDeleteCharacter}/>
