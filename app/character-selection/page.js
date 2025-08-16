@@ -1,16 +1,17 @@
 'use client';
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { db, auth } from '@/app/lib/firebase/firebaseConfig';
 import { doc, onSnapshot, deleteDoc, collection, query, where } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
-import { useRouter } from "next/navigation";
 
-import CharacterCard from "../components/characterCard";
+import CharacterList from "../components/characterList";
 
 export default function CharacterSelection() {
     const [characters, setCharacters] = useState([]);
     const router = useRouter();
 
+    // Fetch characters from firestore
     useEffect(() => {
         const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -36,7 +37,7 @@ export default function CharacterSelection() {
         return () => unsubscribeAuth();
     }, []);
 
-
+    // Removes character from firestore using ID
     const handleDeleteCharacter = async (charId) => {
         try {
             await deleteDoc(doc(db, "characters", charId));
@@ -50,11 +51,10 @@ export default function CharacterSelection() {
         <div>
             <h1>Character Selection</h1>
             <button onClick={() => router.push('/character-editor/new')}>New Character</button>
-            <div>
-                {characters.map((character) => (
-                    <CharacterCard key={character.id} character={character} handleDeleteCharacter={handleDeleteCharacter}/>
-                ))}
-            </div>
+            <CharacterList
+                characters={characters}
+                handleDeleteCharacter={handleDeleteCharacter}
+            />
         </div>
     )
 }
