@@ -9,7 +9,7 @@ import styles from "../styles/navigationHeader.css";
 
 export default function NavigationHeader() {
     const pathName = usePathname();
-    const isRestricted = pathName.startsWith("/sign");
+    const isRestricted = pathName === "/" || pathName.startsWith("/sign");
     const router = useRouter();
     const auth = getAuth();
 
@@ -24,9 +24,12 @@ export default function NavigationHeader() {
 
     useEffect(() => {
         if (!user) {
-        router.push("/sign-in");
+            // don’t redirect if already on "/" or a sign route
+            if (pathName !== "/" && !pathName.startsWith("/sign")) {
+                router.push("/sign-in");
+            }
         }
-    }, [user, router]);
+    }, [user, router, pathName]);
 
     if(user === undefined) { return null; }
 
