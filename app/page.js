@@ -8,6 +8,10 @@ export default function Home() {
     <div className={styles.pageContainer}>
       <div className={styles.container}>
         <h1>SHIV Character Builder</h1>
+        <br/>
+        <h3>Build, customize, and store your Horror TTRPG characters here.</h3>
+        <br/>
+        <h3>Sign-Up to Get Started!</h3>
       </div>
       <div className={styles.container}>
         <h2>News and Updates</h2>
