@@ -1,17 +1,18 @@
 "use client";
+import styles from "./page.module.css";
 import CustomButton from "./components/customButton";
+import CardCarousel from "./components/cardCarousel";
 
 export default function Home() {
   return (
-    <div>
-      <h1>Unregistered Homepage</h1>
-      <p>News about the ttrpg</p>
-      <p>Basic informational section</p>
-      <CustomButton 
-        onClick={() => console.log("Button clicked")} 
-        label={"Test Button"}
-        classes={"smallText"}
-      />
+    <div className={styles.pageContainer}>
+      <div className={styles.container}>
+        <h1>SHIV Character Builder</h1>
+      </div>
+      <div className={styles.container}>
+        <h2>News and Updates</h2>
+        <CardCarousel/>
+      </div>
     </div>
   );
 }

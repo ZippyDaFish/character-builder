@@ -1,0 +1,15 @@
+.carousel-container {
+    margin: 20px 10px;
+    padding: 10px;
+    border: 1px solid black;
+    min-height: 50%;
+}
+
+.content-container {
+    width: 400px;
+    height: 90%;
+}
+.buttons-container {
+    display: flex;
+    justify-content: space-around;
+}
