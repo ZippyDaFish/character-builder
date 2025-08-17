@@ -1,0 +1,25 @@
+button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+.smallText {
+    font-size: 16px;
+}
+.mediumText {
+    font-size: 24px;
+}
+.largeText {
+    font-size: 32px;
+}
