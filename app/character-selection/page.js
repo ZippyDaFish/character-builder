@@ -6,6 +6,7 @@ import { doc, onSnapshot, deleteDoc, collection, query, where } from 'firebase/f
 import { onAuthStateChanged } from 'firebase/auth';
 
 import CharacterList from "../components/characterList";
+import styles from "./page.module.css";
 
 export default function CharacterSelection() {
     const [characters, setCharacters] = useState([]);
@@ -48,13 +49,37 @@ export default function CharacterSelection() {
     };
 
     return (
-        <div>
-            <h1>Character Selection</h1>
-            <button onClick={() => router.push('/character-editor/new')}>New Character</button>
-            <CharacterList
-                characters={characters}
-                handleDeleteCharacter={handleDeleteCharacter}
-            />
+        <div className={styles.page}>
+            <div className={styles.content}>
+                <div className={styles.characterArea}>
+                    <div className={styles.topBar}>
+                        <div className={styles.searchContainer}>
+                            <input 
+                                type="text" 
+                                placeholder="Search by Name or Story" 
+                                className={styles.searchInput} 
+                            />
+                            <button className={styles.searchButton}>🔍</button>
+                        </div>
+                        <div>
+                            <button className={styles.topButton}>Order by: Newest</button>
+                            <button className={styles.topButton}>Filter by: Attribute</button>
+                        </div>
+                    </div>
+                    <CharacterList
+                        characters={characters}
+                        handleDeleteCharacter={handleDeleteCharacter}
+                    />
+                </div>
+                <div className={styles.sidebar}>
+                    <button 
+                        onClick={() => router.push('/character-editor/new')} 
+                        className={styles.newCharacterButton}
+                    >
+                        Create New Character
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }
