@@ -1,7 +1,111 @@
-.pageContent {
-    width: 100vw;
-    height: 92vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.page {
+  display: flex;
+  height: 92vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Left black panel */
+.leftPanel {
+  flex: 1;
+  background: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
+}
+
+.leftContent {
+  max-width: 300px;
+}
+
+.title {
+  font-size: 1.8rem;
+  margin: 1rem 0;
+}
+
+.redLine {
+  height: 6px;
+  width: 80%;
+  background: red;
+  margin: 1rem auto;
+  border-radius: 4px;
+}
+
+/* Right white panel */
+.rightPanel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+}
+
+.formContainer h2 {
+  margin-bottom: 1.5rem;
+}
+
+.formInput {
+  width: 100%;
+  padding: 0.6rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.formButton {
+  width: 100%;
+  padding: 0.7rem;
+  margin: 1rem 0;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.divider {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.divider span {
+  margin: 0 0.5rem;
+  color: #555;
+}
+
+.googleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+}
+
+.googleButton img {
+  width: 18px;
+  height: 18px;
 }

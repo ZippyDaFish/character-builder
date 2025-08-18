@@ -24,21 +24,41 @@ export default function SignIn() {
     };
 
     return (
-        <div className={styles.pageContent}>
-            <h1>User Sign-In</h1>
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <button onClick={handleSignIn}>Sign In</button>
+        <div className={styles.page}>
+            {/* Left Black Panel */}
+            <div className={styles.leftPanel}>
+                <div className={styles.leftContent}>
+                    <div className={styles.redLine}></div>
+                    <h1 className={styles.title}>Horror TTRPG</h1>
+                    <div className={styles.redLine}></div>
+                    <p>A Tabletop-Role-Playing-Game</p>
+                    <p><strong>Character Builder</strong></p>
+                </div>
+            </div>
+
+            {/* Right Form Panel */}
+            <div className={styles.rightPanel}>
+                <div className={styles.formContainer}>
+                    <h2>Welcome Back</h2>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={styles.formInput}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className={styles.formInput}
+                    />
+                    <button onClick={handleSignIn} className={styles.formButton}>
+                        Confirm
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }
