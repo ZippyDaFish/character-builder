@@ -24,21 +24,38 @@ export default function SignUp() {
     };
 
     return (
-        <div className={styles.pageContent}>
-            <h1>User Sign-Up</h1>
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <button onClick={handleSignUp}>Sign Up</button>
+        <div className={styles.page}>
+            <div className={styles.leftPanel}>
+                <div className={styles.leftContent}>
+                    <div className={styles.redLine}></div>
+                    <h1 className={styles.title}>Horror TTRPG</h1>
+                    <div className={styles.redLine}></div>
+                    <p>A Tabletop-Role-Playing-Game</p>
+                    <p><strong>Character Builder</strong></p>
+                </div>
+            </div>
+            <div className={styles.rightPanel}>
+                <div className={styles.formContainer}>
+                    <h2>Register</h2>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={styles.formInput}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className={styles.formInput}
+                    />
+                    <button onClick={handleSignUp} className={styles.formButton}>
+                        Confirm
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }

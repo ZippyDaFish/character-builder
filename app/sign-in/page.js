@@ -25,7 +25,6 @@ export default function SignIn() {
 
     return (
         <div className={styles.page}>
-            {/* Left Black Panel */}
             <div className={styles.leftPanel}>
                 <div className={styles.leftContent}>
                     <div className={styles.redLine}></div>
@@ -35,8 +34,6 @@ export default function SignIn() {
                     <p><strong>Character Builder</strong></p>
                 </div>
             </div>
-
-            {/* Right Form Panel */}
             <div className={styles.rightPanel}>
                 <div className={styles.formContainer}>
                     <h2>Welcome Back</h2>
