@@ -1,12 +1,32 @@
-.container {
+.page-container {
     height: 8vh;
+    display: flex;
+    border-bottom: 1px solid black;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+}
+.container {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-bottom: 1px solid black;
+    gap: 3rem;
 }
 .user-info-container {
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+.header-title {
+    font-size: xx-large;
+}
+.nav-link {
+  text-decoration: none;
+  padding: 4px 8px;
+  font-weight: bold;
+}
+
+.nav-link.active {
+  border-bottom: 3px solid black; /* solid bar under active link */
 }

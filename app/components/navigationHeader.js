@@ -33,20 +33,23 @@ export default function NavigationHeader() {
 
     if(user === undefined) { return null; }
 
+    const linkClass = (href) =>
+        pathName === href ? "nav-link active" : "nav-link";
+
     return (
         <div className="page-container">
-            <Link href="/">Horror TTPRPG</Link>
+            <div>
+                <Link className="header-title" href="/">Horror TTPRPG</Link>
+            </div>
             {!user ? (
                 <div className="container">
-                    <div>
-                        <Link href="/sign-in">Sign-In</Link>
-                        <Link href="/sign-up">Sign-Up</Link>
-                    </div>
+                    <Link className={linkClass("/sign-in")} href="/sign-in">Sign-In</Link>
+                    <Link className={linkClass("/sign-up")} href="/sign-up">Sign-Up</Link>
                 </div>
             ) : (
                 <div className="container">
-                    <Link href="/character-selection">Characters</Link>
-                    <Link href="/about">About</Link>
+                    <Link className={linkClass("/character-selection")} href="/character-selection">Characters</Link>
+                    <Link className={linkClass("/about")} href="/about">About</Link>
                     <div className="user-info-container">
                         <p>{user?.email || ""}</p>
                         <SignOutButton/>
