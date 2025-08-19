@@ -24,12 +24,52 @@ export default function CharacterSheet() {
 
   return (
     <div>
-        <h1>{character.name}</h1>
-        <p>archetype: {character.archetype}</p>
-        <p>S: {character.sanity}</p>
-        <p>H: {character.humanity}</p>
-        <p>I: {character.ingenuity}</p>
-        <p>V: {character.vitality}</p>
+      <h1>{character.name}</h1>
+      <p>Archetype: {character.archetype}</p>
+
+      <h3>Attributes</h3>
+      <p>S: {character.sanity}</p>
+      <p>H: {character.humanity}</p>
+      <p>I: {character.ingenuity}</p>
+      <p>V: {character.vitality}</p>
+      <p>Calm Points: {character.calmPoints}</p>
+
+      <h3>Description</h3>
+      <p>{character.description}</p>
+
+      <h3>Background</h3>
+      <p>{character.background}</p>
+
+      <h3>Notes</h3>
+      <p>{character.notes}</p>
+
+      <h3>Positive Traits</h3>
+      {character.positiveTraits?.length > 0 ? (
+        <ul>
+          {character.positiveTraits.map((trait, index) => (
+            <li key={index}>
+              <strong>{trait.title}</strong> ({trait.tag})  
+              <p>{trait.description}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No positive traits.</p>
+      )}
+
+      <h3>Negative Traits</h3>
+      {character.negativeTraits?.length > 0 ? (
+        <ul>
+          {character.negativeTraits.map((trait, index) => (
+            <li key={index}>
+              <strong>{trait.title}</strong> ({trait.tag})  
+              <p>{trait.description}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No negative traits.</p>
+      )}
     </div>
   );
 }
