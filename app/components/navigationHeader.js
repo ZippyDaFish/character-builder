@@ -35,7 +35,8 @@ export default function NavigationHeader() {
 
     return (
         <div className="page-container">
-            {isRestricted ? (
+            <Link href="/">Horror TTPRPG</Link>
+            {!user ? (
                 <div className="container">
                     <div>
                         <Link href="/sign-in">Sign-In</Link>
@@ -46,8 +47,10 @@ export default function NavigationHeader() {
                 <div className="container">
                     <Link href="/character-selection">Characters</Link>
                     <Link href="/about">About</Link>
-                    <p>{user?.email || ""}</p>
-                    <SignOutButton/>
+                    <div className="user-info-container">
+                        <p>{user?.email || ""}</p>
+                        <SignOutButton/>
+                    </div>
                 </div>
             )}
         </div>
