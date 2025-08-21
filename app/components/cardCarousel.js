@@ -26,7 +26,7 @@ export default function CardCarousel() {
   };
 
   const prevCard = () => {
-    setIndex((prev) => (prev - 1 + cards.length) % cards.lengdth);
+    setIndex((prev) => (prev - 1 + cards.length) % cards.length);
   };
 
   return (
