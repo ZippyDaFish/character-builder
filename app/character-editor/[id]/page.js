@@ -71,9 +71,10 @@ export default function CharacterEditor() {
 
         if (id === 'new') {
             const docRef = await addDoc(collection(db, 'characters'), characterData);
-            router.push(`/character-editor/${docRef.id}`);
+            router.push(`/character-sheet/${docRef.id}`);
         } else {
             await setDoc(doc(db, 'characters', id), characterData, { merge: true });
+            router.push(`/character-sheet/${id}`);
         }
     }
 
