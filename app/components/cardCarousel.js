@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import styles from "../styles/cardCarousel.css";
+import "../styles/cardCarousel.css";
 
 const cards = [
   {
