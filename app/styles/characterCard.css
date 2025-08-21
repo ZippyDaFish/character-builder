@@ -8,8 +8,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem;
-  margin: 1rem;
-  width: 250px;
+  margin: 0.5rem;
+  width: 80%;              /* take full width of grid cell */
+  max-width: 80%;          /* no artificial limit */
+  box-sizing: border-box;   /* include padding in width */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -50,10 +52,6 @@
   transition: background 0.2s ease, transform 0.1s ease;
 }
 
-.button:hover {
-  transform: scale(1.05);
-}
-
 .view {
   background: black;
   color: white;
@@ -61,6 +59,7 @@
 
 .view:hover {
   background: #222;
+  color: white;
 }
 
 .edit {
@@ -80,4 +79,5 @@
 
 .delete:hover {
   background: darkred;
+  color: white;
 }

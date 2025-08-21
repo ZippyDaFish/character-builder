@@ -1,8 +1,8 @@
 .character-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 per row */
-  gap: 1rem; /* spacing between cards */
-  padding: 2rem;
+  gap: 1.5rem; /* spacing between cards */
+  padding: 1.5rem;
   justify-items: center; /* center cards in their grid cell */
 }
 
