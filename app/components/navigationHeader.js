@@ -39,7 +39,7 @@ export default function NavigationHeader() {
     return (
         <div className="page-container">
             <div>
-                <Link className="header-title" href="/">Horror TTPRPG</Link>
+                <Link className="header-title" href="/">Horror TTRPG</Link>
             </div>
             {!user ? (
                 <div className="container">
