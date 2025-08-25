@@ -38,6 +38,51 @@
   cursor: pointer;
 }
 
+.topButtonsContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.controlButton,
+.controlDropdown {
+  background: black;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  min-width: 140px;
+}
+
+.controlDropdown {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  text-align-last: center;
+}
+.controlDropdown:hover {
+  background: white;
+  color: black;
+}
+.controlDropdown option {
+  background: white;
+  color: black;
+}
+
+.controlGroup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.controlLabel {
+  font-weight: 500;
+  margin-right: 4px;
+}
+
+
 .topButton {
   background: black;
   color: white;
