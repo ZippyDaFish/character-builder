@@ -22,6 +22,17 @@ export default function CharacterSheet() {
     fetchData();
   }, [id]);
 
+  const updateAttribute = (attr, delta) => {
+    setCharacter(prev => {
+      const currentVal = parseInt(prev[attr], 10) || 0; 
+      const newVal = Math.max(0, currentVal + delta); // prevent negative
+      return {
+        ...prev,
+        [attr]: String(newVal) 
+      };
+    });
+  };
+
   if (!character) return <p>Loading...</p>;
 
   return (
@@ -33,11 +44,47 @@ export default function CharacterSheet() {
 
         <h3>Attributes</h3>
         <div className={styles.attributes}>
-          <p><strong>S</strong>: {character.sanity}</p>
-          <p><strong>H</strong>: {character.humanity}</p>
-          <p><strong>I</strong>: {character.ingenuity}</p>
-          <p><strong>V</strong>: {character.vitality}</p>
-          <p><strong>Calm Points</strong>: {character.calmPoints}</p>
+          <div className={styles.attributeHeaderContainer}>
+            <h2>S</h2>
+            <div className={styles.attributeContentContainer}>
+              <button onClick={() => updateAttribute("sanity", -1)}>-</button>
+              <h3>{character.sanity}</h3>
+              <button onClick={() => updateAttribute("sanity", +1)}>+</button>
+            </div>
+          </div>
+          <div className={styles.attributeHeaderContainer}>
+            <h2>H</h2>
+            <div className={styles.attributeContentContainer}>
+              <button onClick={() => updateAttribute("humanity", -1)}>-</button>
+              <h3>{character.humanity}</h3>
+              <button onClick={() => updateAttribute("humanity", +1)}>+</button>
+            </div>
+          </div>
+          <div className={styles.attributeHeaderContainer}>
+            <h2>I</h2>
+            <div className={styles.attributeContentContainer}>
+              <button onClick={() => updateAttribute("ingenuity", -1)}>-</button>
+              <h3>{character.ingenuity}</h3>
+              <button onClick={() => updateAttribute("ingenuity", +1)}>+</button>
+            </div>
+          </div>
+          <div className={styles.attributeHeaderContainer}>
+            <h2>V</h2>
+            <div className={styles.attributeContentContainer}>
+              <button onClick={() => updateAttribute("vitality", -1)}>-</button>
+              <h3>{character.vitality}</h3>
+              <button onClick={() => updateAttribute("vitality", +1)}>+</button>
+            </div>
+          </div>
+
+          <div className={styles.attributeHeaderContainer}>
+            <h2>Calm Points</h2>
+            <div className={styles.attributeContentContainer}>
+              <button onClick={() => updateAttribute("calmPoints", -1)}>-</button>
+              <h3>{character.calmPoints}</h3>
+              <button onClick={() => updateAttribute("calmPoints", +1)}>+</button>
+            </div>
+          </div>
         </div>
 
         <h3>Positive Traits</h3>

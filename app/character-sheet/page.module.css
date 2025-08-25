@@ -26,9 +26,21 @@
 
 .attributes {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.3rem 1rem;
   margin-bottom: 1.5rem;
+}
+.attributeHeaderContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.attributeContentContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
 }
 
 .traitList {

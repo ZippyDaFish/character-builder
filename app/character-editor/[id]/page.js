@@ -111,16 +111,16 @@ export default function CharacterEditor() {
                 </select>
 
                 <label className={styles.label}>Vitality</label>
-                <input className={styles.input} type="number" name="vitality" value={formData.vitality} onChange={handleChange} />
+                <input className={styles.input} type="number" max="50" name="vitality" value={formData.vitality} onChange={handleChange} />
 
                 <label className={styles.label}>Humanity</label>
-                <input className={styles.input} type="number" name="humanity" value={formData.humanity} onChange={handleChange} />
+                <input className={styles.input} type="number" max="50" name="humanity" value={formData.humanity} onChange={handleChange} />
 
                 <label className={styles.label}>Sanity</label>
-                <input className={styles.input} type="number" name="sanity" value={formData.sanity} onChange={handleChange} />
+                <input className={styles.input} type="number" max="50" name="sanity" value={formData.sanity} onChange={handleChange} />
 
                 <label className={styles.label}>Ingenuity</label>
-                <input className={styles.input} type="number" name="ingenuity" value={formData.ingenuity} onChange={handleChange} />
+                <input className={styles.input} type="number" max="50" name="ingenuity" value={formData.ingenuity} onChange={handleChange} />
 
                 <label className={styles.label}>Calm Points</label>
                 <input className={styles.input} type="number" name="calmPoints" value={formData.calmPoints} onChange={handleChange} />
