@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { db, auth } from '@/app/lib/firebase/firebaseConfig';
 import { doc, onSnapshot, deleteDoc, collection, query, where } from 'firebase/firestore';
@@ -11,6 +11,7 @@ import styles from "./page.module.css";
 export default function CharacterSelection() {
     const [characters, setCharacters] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [sortOrder, setSortOrder] = useState("asc");
     const router = useRouter();
 
     // Fetch characters from firestore
@@ -51,9 +52,24 @@ export default function CharacterSelection() {
 
     const filteredCharacters = characters.filter((char) => {
         const nameMatch = char.name?.toLowerCase().includes(searchTerm.toLowerCase());
-        const storyMatch = char.story?.toLowerCase().includes(searchTerm.toLowerCase());
-        return nameMatch || storyMatch;
+        return nameMatch;
     });
+
+    const sortedCharacters = useMemo(() => {
+        return [...filteredCharacters].sort((a, b) => {
+            const nameA = a.name?.toLowerCase() || "";
+            const nameB = b.name?.toLowerCase() || "";
+            if (sortOrder === "asc") {
+                return nameA.localeCompare(nameB);
+            } else {
+                return nameB.localeCompare(nameA);
+            }
+        });
+    }, [filteredCharacters, sortOrder]);
+
+    const toggleSortOrder = () => {
+        setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+    };
 
     return (
         <div className={styles.page}>
@@ -71,12 +87,17 @@ export default function CharacterSelection() {
                             <button className={styles.searchButton}>🔍</button>
                         </div>
                         <div>
-                            <button className={styles.topButton}>Order by: Newest</button>
+                            <button 
+                                className={styles.topButton}
+                                onClick={toggleSortOrder}
+                            >
+                                Order by: Name ({sortOrder === "asc" ? "↑" : "↓"})
+                            </button>
                             <button className={styles.topButton}>Filter by: Attribute</button>
                         </div>
                     </div>
                     <CharacterList
-                        characters={filteredCharacters}
+                        characters={sortedCharacters}
                         handleDeleteCharacter={handleDeleteCharacter}
                     />
                 </div>
