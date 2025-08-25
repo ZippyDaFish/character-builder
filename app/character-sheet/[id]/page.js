@@ -1,8 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "next/navigation";
 import { db } from "@/app/lib/firebase/firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import styles from "../page.module.css";
 
 export default function CharacterSheet() {
@@ -22,15 +22,32 @@ export default function CharacterSheet() {
     fetchData();
   }, [id]);
 
+  const updateTimeout = useRef(null);
+
   const updateAttribute = (attr, delta) => {
     setCharacter(prev => {
-      const currentVal = parseInt(prev[attr], 10) || 0; 
-      const newVal = Math.max(0, currentVal + delta); // prevent negative
+      const currentVal = parseInt(prev[attr], 10) || 0;
+      const newVal = Math.max(0, currentVal + delta);
       return {
         ...prev,
-        [attr]: String(newVal) 
+        [attr]: String(newVal)
       };
     });
+
+    if (updateTimeout.current) clearTimeout(updateTimeout.current);
+
+    updateTimeout.current = setTimeout(async () => {
+      try {
+        const docRef = doc(db, "characters", id);
+        await updateDoc(docRef, {
+          [attr]: String(
+            Math.max(0, (parseInt(character?.[attr], 10) || 0) + delta)
+          ),
+        });
+      } catch (err) {
+        console.error("Failed to update attribute:", err);
+      }
+    }, 500); // waits 500ms after last click before writing
   };
 
   if (!character) return <p>Loading...</p>;
