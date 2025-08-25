@@ -10,6 +10,7 @@ import styles from "./page.module.css";
 
 export default function CharacterSelection() {
     const [characters, setCharacters] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
     const router = useRouter();
 
     // Fetch characters from firestore
@@ -48,6 +49,12 @@ export default function CharacterSelection() {
         }
     };
 
+    const filteredCharacters = characters.filter((char) => {
+        const nameMatch = char.name?.toLowerCase().includes(searchTerm.toLowerCase());
+        const storyMatch = char.story?.toLowerCase().includes(searchTerm.toLowerCase());
+        return nameMatch || storyMatch;
+    });
+
     return (
         <div className={styles.page}>
             <div className={styles.content}>
@@ -56,8 +63,10 @@ export default function CharacterSelection() {
                         <div className={styles.searchContainer}>
                             <input 
                                 type="text" 
-                                placeholder="Search by Name or Story" 
+                                placeholder="Search by Name" 
                                 className={styles.searchInput} 
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
                             />
                             <button className={styles.searchButton}>🔍</button>
                         </div>
@@ -67,7 +76,7 @@ export default function CharacterSelection() {
                         </div>
                     </div>
                     <CharacterList
-                        characters={characters}
+                        characters={filteredCharacters}
                         handleDeleteCharacter={handleDeleteCharacter}
                     />
                 </div>
