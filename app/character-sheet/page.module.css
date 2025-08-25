@@ -70,7 +70,6 @@
   margin: 0 0.3rem;
   background: #000;
   color: #fff;
-  border: none;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
@@ -81,7 +80,8 @@
 }
 
 .activeTab {
-  background: #444;
+  background: #fff;
+  color: black;
 }
 
 .tabContent {
