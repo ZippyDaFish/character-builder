@@ -5,6 +5,17 @@ import { db, auth } from '@/app/lib/firebase/firebaseConfig';
 import { collection, addDoc, doc, getDoc, setDoc } from 'firebase/firestore';
 import styles from "../page.module.css";
 
+const archetypePresets = {
+    Scholar: { vitality: 20, humanity: 25, sanity: 35, ingenuity: 20 },
+    Guardian: { vitality: 35, humanity: 20, sanity: 20, ingenuity: 25 },
+    Altruist: { vitality: 25, humanity: 35, sanity: 20, ingenuity: 20 },
+    Freespirit: { vitality: 20, humanity: 20, sanity: 25, ingenuity: 35 },
+    Paragon: { vitality: 25, humanity: 20, sanity: 35, ingenuity: 20 },
+    Jubilant: { vitality: 25, humanity: 20, sanity: 20, ingenuity: 35 },
+    Shepard: { vitality: 20, humanity: 35, sanity: 20, ingenuity: 25 },
+    Strategist: { vitality: 20, humanity: 20, sanity: 35, ingenuity: 25 },
+};
+
 export default function CharacterEditor() {
     const router = useRouter();
     const { id } = useParams();
@@ -45,6 +56,20 @@ export default function CharacterEditor() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        // Special handling when "archetype" changes
+        if (name === "archetype") {
+            const preset = archetypePresets[value];
+            if (preset) {
+                setFormData(prev => ({
+                    ...prev,
+                    [name]: value,
+                    ...preset // overwrite the four core attributes
+                }));
+                return;
+            }
+        }
+
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
@@ -105,22 +130,23 @@ export default function CharacterEditor() {
                     onChange={handleChange}
                 >
                     <option value="">--Select--</option>
-                    <option value="bruiser">Bruiser</option>
-                    <option value="guardian">Guardian</option>
-                    <option value="altruist">Altruist</option>
+                    {Object.keys(archetypePresets).map((arch) => (
+                        <option key={arch} value={arch}>{arch}</option>
+                    ))}
                 </select>
-
-                <label className={styles.label}>Vitality</label>
-                <input className={styles.input} type="number" max="50" name="vitality" value={formData.vitality} onChange={handleChange} />
-
-                <label className={styles.label}>Humanity</label>
-                <input className={styles.input} type="number" max="50" name="humanity" value={formData.humanity} onChange={handleChange} />
 
                 <label className={styles.label}>Sanity</label>
                 <input className={styles.input} type="number" max="50" name="sanity" value={formData.sanity} onChange={handleChange} />
 
+
+                <label className={styles.label}>Humanity</label>
+                <input className={styles.input} type="number" max="50" name="humanity" value={formData.humanity} onChange={handleChange} />
+
                 <label className={styles.label}>Ingenuity</label>
                 <input className={styles.input} type="number" max="50" name="ingenuity" value={formData.ingenuity} onChange={handleChange} />
+
+                <label className={styles.label}>Vitality</label>
+                <input className={styles.input} type="number" max="50" name="vitality" value={formData.vitality} onChange={handleChange} />
 
                 <label className={styles.label}>Calm Points</label>
                 <input className={styles.input} type="number" name="calmPoints" value={formData.calmPoints} onChange={handleChange} />
