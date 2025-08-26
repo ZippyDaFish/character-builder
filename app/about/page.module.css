@@ -1,0 +1,58 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.underline {
+  width: 80px;
+  height: 3px;
+  background: red;
+  margin: 0.5rem auto 1.5rem auto;
+}
+
+.paragraph {
+  max-width: 700px;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.infoBox {
+  background: black;
+  color: white;
+  border: 1px solid red;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  max-width: 700px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+}
+
+.features {
+  max-width: 700px;
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.featureList li {
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
