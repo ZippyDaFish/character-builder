@@ -25,6 +25,13 @@
   text-decoration: none;
   padding: 4px 8px;
   font-weight: bold;
+  transition: transform 0.2s ease, border-color 0.3s ease;
+  border-bottom: 2px solid transparent; /* invisible until hover */
+}
+
+.nav-link:hover {
+  transform: translateY(-3px);
+  border-bottom: 3px solid black;
 }
 
 .nav-link.active {
