@@ -5,6 +5,8 @@ import { auth } from '@/app/lib/firebase/firebaseConfig';
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 
+import GoogleButton from "../components/googleButton";
+
 export default function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -54,6 +56,9 @@ export default function SignIn() {
                     <button onClick={handleSignIn} className={styles.formButton}>
                         Confirm
                     </button>
+
+                    <div className={styles.divider}>or</div>
+                    <GoogleButton />
                 </div>
             </div>
         </div>
