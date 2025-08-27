@@ -67,12 +67,11 @@ export default function CharacterSelection() {
     const filteredCharacters = useMemo(() => {
         return characters.filter((char) => {
             const nameMatch = char.name?.toLowerCase().includes(searchTerm.toLowerCase());
-            const storyMatch = char.story?.toLowerCase().includes(searchTerm.toLowerCase());
             return nameMatch || storyMatch;
         });
     }, [characters, searchTerm]);
 
-    // ✅ Filter by archetype
+    // Filter by archetype
     const archetypeFiltered = useMemo(() => {
         if (!filterArchetype) return filteredCharacters;
         return filteredCharacters.filter((char) => char.archetype === filterArchetype);
@@ -95,7 +94,7 @@ export default function CharacterSelection() {
         setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
     };
 
-    // ✅ Cycle through archetypes
+    // Cycle through archetypes
     const cycleFilter = () => {
         if (filterArchetype === null) {
             setFilterArchetype(archetypes[0]);
